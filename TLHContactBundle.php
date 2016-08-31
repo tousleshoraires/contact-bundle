@@ -11,6 +11,8 @@
 
 namespace TLH\ContactBundle;
 
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
 /**
  * @author Julien Devergnies <julien@tousleshoraires.fr>
  */
