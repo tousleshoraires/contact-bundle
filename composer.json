@@ -1,0 +1,35 @@
+{
+    "name": "tousleshoraires/contact-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony TLHContactBundle",
+    "keywords": ["contact form"],
+    "homepage": "https://github.com/tousleshoraires/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Julien Devergnies",
+            "email": "julien@tousleshoraires.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/form": "~2.3|~3.0",
+        "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/security-bundle": "~2.3|~3.0",
+        "symfony/twig-bundle": "~2.3|~3.0"
+    },
+    "require-dev": {},
+    "conflict": {},
+    "suggest": {},
+    "autoload": {
+        "psr-4": { "TLH\\ContactBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "support": {
+        "docs": "http://www.tousleshoraires.com"
+    }
+}
