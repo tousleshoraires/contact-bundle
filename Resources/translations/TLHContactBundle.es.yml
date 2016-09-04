@@ -1,0 +1,12 @@
+form:
+  message: "Mensaje"
+  submit: "Enviar el mensaje"
+contact:
+    confirmed: 'Gracias, tu mensaje ha sido enviado.'
+    email:
+        confirmation:
+          subject: 'Mensaje recibido!'
+          message: "Hola !\n\nHemos recibido tu mensaje. Te contestaremos lo antes posible.\n\n%website%\n\nAtentamente,\nel Equipo.\n"
+        information:
+          subject: 'Nuevo mensaje recibido!'
+          message: "Hola !\n\nHas recibido un nuevo mensaje.\n\n%email%\n\n%message%\n\n%website%\n\nAtentamente,\nel Equipo.\n"

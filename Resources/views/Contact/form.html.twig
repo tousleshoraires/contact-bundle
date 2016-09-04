@@ -1,1 +1,14 @@
-Hello World !
+{% extends "TLHContactBundle::layout.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% trans_default_domain 'TLHContactBundle' %}
+
+{% block tlh_contact_content %}
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+		<div data-alert>{{ flashMessage }}</div>
+	{% endfor %}
+
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}
+{% endblock tlh_contact_content %}

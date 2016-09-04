@@ -1,0 +1,12 @@
+{% trans_default_domain 'TLHContactBundle' %}
+{% block subject %}
+{% autoescape false %}
+{{ 'contact.email.confirmation.subject'|trans({'%website%': website}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'contact.email.confirmation.message'|trans({'%website%': website}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}
