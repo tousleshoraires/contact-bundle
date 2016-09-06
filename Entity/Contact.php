@@ -9,8 +9,7 @@ use Symfony\Component\Validator\ExecutionContext;
 /**
  * TLH\ContactBundle\Entity\Contact
  *
- * @ORM\Table(name="contact", indexes={@ORM\Index(name="email_idx", columns={"email"})})
- * @ORM\Entity()
+ * @ORM\MappedSuperclass()
  */
 class Contact
 {
