@@ -40,6 +40,7 @@ class Configuration implements ConfigurationInterface
                 // ->scalarNode('contact_class')->isRequired()->cannotBeEmpty()->end();
                 ->scalarNode('class')->defaultValue('TLH\ContactBundle\Entity\Contact')->end()
                 ->scalarNode('form')->defaultValue('TLH\ContactBundle\Form\ContactType')->end()
+                ->scalarNode('recipient_address')->isRequired()->cannotBeEmpty()->end()
                 // ->arrayNode('from_email')
                 //     ->addDefaultsIfNotSet()
                 //     ->children()

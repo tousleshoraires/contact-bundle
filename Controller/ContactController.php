@@ -98,7 +98,7 @@ class ContactController extends Controller
             'website' =>  $url,
             'contact' => $contact
         ));
-        $this->sendEmailMessage($rendered, $this->getParameter('tlh_contact.confirmation.from_email.address'), $contact->getEmail());
+        $this->sendEmailMessage($rendered, $this->getParameter('tlh_contact.confirmation.from_email.address'), $this->getParameter('tlh_contact.recipient_address'));
     }
 
     /**
@@ -111,7 +111,7 @@ class ContactController extends Controller
             'website' =>  $url,
             'contact' => $contact
         ));
-        $this->sendEmailMessage($rendered, $this->getParameter('tlh_contact.information.from_email.address'), $contact->getEmail());
+        $this->sendEmailMessage($rendered, $this->getParameter('tlh_contact.information.from_email.address'), $this->getParameter('tlh_contact.recipient_address'));
     }
 
     /**
