@@ -20,28 +20,28 @@ class Contact
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var email
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
-    private $email;
+    protected $email;
 
     /**
      * @var message
      *
      * @ORM\Column(name="message", type="text", nullable=false)
      */
-    private $message;
+    protected $message;
 
     /**
      * @var datetime
      *
      * @ORM\Column(name="creation", type="datetime", nullable=false)
      */
-    private $creation;
+    protected $creation;
 
     public function __construct()
     {
