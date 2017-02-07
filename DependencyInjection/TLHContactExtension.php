@@ -33,6 +33,7 @@ class TLHContactExtension extends Extension
 
         $container->setParameter('tlh_contact.class', $config['class']);
         $container->setParameter('tlh_contact.form', $config['form']);
+        $container->setParameter('tlh_contact.recipient_address', $config['recipient_address']);
         $container->setParameter('tlh_contact.confirmation.enabled', $config['confirmation']['enabled']);
         $container->setParameter('tlh_contact.confirmation.template', $config['confirmation']['template']);
         $container->setParameter('tlh_contact.information.enabled', $config['information']['enabled']);
