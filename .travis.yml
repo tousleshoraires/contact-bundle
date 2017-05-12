@@ -17,7 +17,8 @@ env:
   - SYMFONY_VERSION="dev-master" DB=mysql
 
 before_script:
-  - composer require symfony/http-foundation:${SYMFONY_VERSION}
+  - composer create-project symfony/framework-standard-edition my_project_name "${SYMFONY_VERSION}"
+  # - composer require symfony/http-foundation:${SYMFONY_VERSION}
 
 notifications:
   email:
