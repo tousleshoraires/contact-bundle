@@ -21,7 +21,7 @@ before_script:
     if [[ ${SYMFONY_VERSION} != 3.* || $PHP != 5.4 ]]; then
       composer create-project symfony/framework-standard-edition my_project_name "${SYMFONY_VERSION}"
     fi
-  # - composer require symfony/http-foundation:${SYMFONY_VERSION}
+  # composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update;
 
 notifications:
   email:
