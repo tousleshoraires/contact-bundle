@@ -52,7 +52,7 @@ before_script:
 
 # Run script and log coverage in the "build" directory
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit ./Tests/
 
 # Send a notification to our email address
 notifications:
