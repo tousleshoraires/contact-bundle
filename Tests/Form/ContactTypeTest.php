@@ -15,7 +15,7 @@ class ContactTypeTest extends TypeTestCase
     {
         $contact = new Contact();
 
-        $form = $this->factory->create(ContactType::class);
+        $form = $this->factory->create(ContactType::class, $contact);
 
         $formData = array(
             'email' => 'bar@domain.tld',
@@ -26,12 +26,15 @@ class ContactTypeTest extends TypeTestCase
         $this->assertTrue($form->isSynchronized());
         $this->assertSame($contact, $form->getData());
         $this->assertSame('bar@domain.tld', $contact->getEmail());
+    }
 
-        $view = $form->createView();
-        $children = $view->children;
-
-        foreach (array_keys($formData) as $key) {
-            $this->assertArrayHasKey($key, $children);
-        }
+    /**
+     * @return array
+     */
+    protected function getTypes()
+    {
+        return array_merge(parent::getTypes(), array(
+            new ContactType('TLH\ContactBundle\Entity\Contact'),
+        ));
     }
 }
