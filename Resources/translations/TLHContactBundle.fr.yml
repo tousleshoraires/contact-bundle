@@ -1,2 +1,12 @@
 form:
+  message: "Votre message"
   submit: "Envoyer le message"
+contact:
+    confirmed: 'Merci, votre message a été envoyé.'
+    email:
+        confirmation:
+          subject: 'Message reçu!'
+          message: "Bonjour !\n\nNous avons reçu votre message. Nous vous contacterons dès que possible.\n\n%website%\n\nCordialement,\nl'équipe.\n"
+        information:
+          subject: 'Nouveau message reçu!'
+          message: "Bonjour !\n\nVous avez reçu un nouveau message.\n\n%email%\n\n%message%\n\n%website%\n\nCordialement,\nl'équipe.\n"
