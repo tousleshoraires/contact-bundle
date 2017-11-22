@@ -2,14 +2,15 @@
 
 namespace TLH\ContactBundle\Tests\Entity;
 
+use PHPUnit\Framework\TestCase;
 use TLH\ContactBundle\Entity\Contact;
 
-class ContactTest extends \PHPUnit_Framework_TestCase
+class ContactTest extends TestCase
 {
     /**
      * @test
      */
-    public function specifications()
+    public function specificationsOfContact()
     {
         $email = 'name@domain.tld';
         $message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
