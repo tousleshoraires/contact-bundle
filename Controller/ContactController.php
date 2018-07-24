@@ -73,7 +73,7 @@ class ContactController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createContactForm($entity)
+    protected function createContactForm($entity)
     {
         $contactClass = $this->getParameter('tlh_contact.class');
 
