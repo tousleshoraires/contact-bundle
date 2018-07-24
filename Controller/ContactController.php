@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 // use TLH\ContactBundle\Entity\Contact;
-use TLH\ContactBundle\Form\ContactType;
 
 class ContactController extends Controller
 {
