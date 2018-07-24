@@ -23,21 +23,21 @@ class Contact
     protected $id;
 
     /**
-     * @var email
+     * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     protected $email;
 
     /**
-     * @var message
+     * @var string
      *
      * @ORM\Column(name="message", type="text", nullable=false)
      */
     protected $message;
 
     /**
-     * @var datetime
+     * @var \DateTimeInterface
      *
      * @ORM\Column(name="creation", type="datetime", nullable=false)
      */
