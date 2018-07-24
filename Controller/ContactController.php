@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 // use TLH\ContactBundle\Entity\Contact;
-use TLH\ContactBundle\Form\ContactType;
 
 class ContactController extends Controller
 {
@@ -73,7 +72,7 @@ class ContactController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createContactForm($entity)
+    protected function createContactForm($entity)
     {
         $contactClass = $this->getParameter('tlh_contact.class');
 
