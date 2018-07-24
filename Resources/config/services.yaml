@@ -1,0 +1,7 @@
+services:
+    TLH\ContactBundle\Services\Messager:
+        arguments: ['@templating', '@mailer', '@request_stack']
+        public: true
+        calls:
+            - method: setParameters
+              arguments: ['%tlh_contact%']

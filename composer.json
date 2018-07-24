@@ -17,15 +17,12 @@
     "require-dev": {
         "phpunit/phpunit": "^4.8.35|^5.4.3|^6.0",
         "symfony/expression-language": "~2.6|~3.0|~4.0",
-        "symfony/yaml": "*",
         "symfony/class-loader": "*",
-        "symfony/finder": "*",
-        "symfony/process": "*",
-        "doctrine/doctrine-bundle": "*",
         "symfony/twig-bundle": "*",
         "doctrine/orm": "*",
         "symfony/form": "*",
-        "symfony/validator": "*"
+        "symfony/validator": "*",
+        "swiftmailer/swiftmailer": "~4.2|~5.0"
     },
     "conflict": {},
     "suggest": {},

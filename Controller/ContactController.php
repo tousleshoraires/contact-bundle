@@ -14,6 +14,8 @@ namespace TLH\ContactBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use TLH\ContactBundle\Services\Messager;
+
 // use TLH\ContactBundle\Entity\Contact;
 
 class ContactController extends Controller
@@ -39,16 +41,15 @@ class ContactController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $session = $request->getSession();
             $session->getFlashBag()->add('notice', $this->get('translator')->trans('contact.confirmed', [], 'TLHContactBundle'));
 
             if( $this->getParameter('tlh_contact.confirmation.enabled') ) {
-                $this->sendConfirmationEmailMessage($contact, $request);
+                $this->get(Messager::class)->sendConfirmationEmailMessage($contact);
             }
 
             if( $this->getParameter('tlh_contact.information.enabled') ) {
-                $this->sendInformationEmailMessage($contact, $request);
+                $this->get(Messager::class)->sendInformationEmailMessage($contact);
             }
 
             // ... perform some action, such as saving the task to the database
@@ -85,52 +86,5 @@ class ContactController extends Controller
         $form->add('submit', SubmitType::class, array('label' => 'form.submit', 'translation_domain' => 'TLHContactBundle'));
 
         return $form;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function sendConfirmationEmailMessage($contact, Request $request)
-    {
-        $url = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-        $rendered = $this->get('templating')->render($this->getParameter('tlh_contact.confirmation.template'), array(
-            'website' =>  $url,
-            'contact' => $contact
-        ));
-        $this->sendEmailMessage($rendered, $this->getParameter('tlh_contact.confirmation.from_email.address'), $this->getParameter('tlh_contact.recipient_address'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function sendInformationEmailMessage($contact, Request $request)
-    {
-        $url = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-        $rendered = $this->get('templating')->render($this->getParameter('tlh_contact.information.template'), array(
-            'website' =>  $url,
-            'contact' => $contact
-        ));
-        $this->sendEmailMessage($rendered, $this->getParameter('tlh_contact.information.from_email.address'), $this->getParameter('tlh_contact.recipient_address'));
-    }
-
-    /**
-     * @param string $renderedTemplate
-     * @param string $fromEmail
-     * @param string $toEmail
-     */
-    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
-    {
-        // Render the email, use the first line as the subject, and the rest as the body
-        $renderedLines = explode("\n", trim($renderedTemplate));
-        $subject = $renderedLines[0];
-        $body = implode("\n", array_slice($renderedLines, 1));
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
-            ->setFrom($fromEmail)
-            ->setTo($toEmail)
-            ->setBody($body);
-
-        $this->get('mailer')->send($message);
     }
 }
