@@ -104,9 +104,9 @@ class Messager
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
-        $message = \Swift_Message($subject);
+        $message = $this->mailer->createMessage();
         $message
-            ->setSubject()
+            ->setSubject($subject)
             ->setFrom($fromEmail)
             ->setTo($toEmail)
             ->setBody($body);
