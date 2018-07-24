@@ -2,15 +2,15 @@
 
 namespace TLH\ContactBundle\Services;
 
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class Messager
 {
     /**
-     * @var Request
+     * @var RequestStack
      */
-    private $request;
+    private $requestStack;
 
     /**
      * @var EngineInterface
@@ -30,10 +30,10 @@ class Messager
     /**
      * Messager constructor.
      */
-    public function __construct(EngineInterface $templating, \Swift_Mailer $mailer, Request $request)
+    public function __construct(EngineInterface $templating, \Swift_Mailer $mailer, RequestStack $requestStack)
     {
         $this->templating = $templating;
-        $this->request = $request;
+        $this->requestStack = $requestStack;
         $this->mailer = $mailer;
     }
 
@@ -51,7 +51,7 @@ class Messager
     /**
      * @param string $parameter
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function getParameter($parameter)
     {
@@ -65,16 +65,16 @@ class Messager
             }
             $parameter = $parameter[$key];
         }
-        return $parameter;
+        return (isset($parameter)) ? $parameter : null;
     }
 
     /**
      * @param $contact
      */
-    public function sendConfirmationEmailMessage($contact)
+    public function sendConfirmationEmailMessage($contact, $template)
     {
         $this->sendEmailMessage(
-            $this->renderTemplate($contact, 'confirmation.template'),
+            $this->renderTemplate($contact, $template),
             $this->getParameter('confirmation.from_email.address'),
             $this->getParameter('recipient_address')
         );
@@ -83,10 +83,10 @@ class Messager
     /**
      * @param $contact
      */
-    public function sendInformationEmailMessage($contact)
+    public function sendInformationEmailMessage($contact, $template)
     {
         $this->sendEmailMessage(
-            $this->renderTemplate($contact, 'information.template'),
+            $this->renderTemplate($contact, $template),
             $this->getParameter('information.from_email.address'),
             $this->getParameter('recipient_address')
         );
@@ -115,14 +115,15 @@ class Messager
 
     /**
      * @param $contact
-     * @param $template
+     * @param string $template
      * @return string
      */
     private function renderTemplate($contact, $template)
     {
-        $url      = $this->request->getScheme() . '://' . $this->request->getHttpHost() . $this->request->getBasePath();
+        $request = $this->requestStack->getCurrentRequest();
+        $url      = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $rendered = $this->templating->render(
-            $this->getParameter($template),
+            $template,
             array(
                 'website' => $url,
                 'contact' => $contact

@@ -44,12 +44,18 @@ class ContactController extends Controller
             $session = $request->getSession();
             $session->getFlashBag()->add('notice', $this->get('translator')->trans('contact.confirmed', [], 'TLHContactBundle'));
 
-            if( $this->getParameter('tlh_contact.confirmation.enabled') ) {
-                $this->get(Messager::class)->sendConfirmationEmailMessage($contact);
+            if ($this->getParameter('tlh_contact.confirmation.enabled')) {
+                $this->get(Messager::class)->sendConfirmationEmailMessage(
+                    $contact,
+                    $this->getParameter('tlh_contact.confirmation.enabled')
+                );
             }
 
-            if( $this->getParameter('tlh_contact.information.enabled') ) {
-                $this->get(Messager::class)->sendInformationEmailMessage($contact);
+            if ($this->getParameter('tlh_contact.information.enabled')) {
+                $this->get(Messager::class)->sendInformationEmailMessage(
+                    $contact,
+                    $this->getParameter('tlh_contact.information.enabled')
+                );
             }
 
             // ... perform some action, such as saving the task to the database

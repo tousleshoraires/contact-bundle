@@ -2,11 +2,12 @@
 
 namespace tests\TLH\ContactBundle\Services;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use TLH\ContactBundle\Services\Messager;
 
-class MessagerTest extends \PHPUnit_Framework_TestCase
+class MessagerTest extends TestCase
 {
     /**
      * @test
@@ -27,7 +28,7 @@ class MessagerTest extends \PHPUnit_Framework_TestCase
         $messager = new Messager(
             $this->createMock(EngineInterface::class),
             $this->createMock(\Swift_Mailer::class),
-            new Request()
+            new RequestStack()
         );
 
         $parameter = $messager
