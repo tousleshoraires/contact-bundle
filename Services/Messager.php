@@ -104,11 +104,12 @@ class Messager
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
-        $message = \Swift_Message::newInstance()
-                                 ->setSubject($subject)
-                                 ->setFrom($fromEmail)
-                                 ->setTo($toEmail)
-                                 ->setBody($body);
+        $message = \Swift_Message($subject);
+        $message
+            ->setSubject()
+            ->setFrom($fromEmail)
+            ->setTo($toEmail)
+            ->setBody($body);
 
         $this->mailer->send($message);
     }
