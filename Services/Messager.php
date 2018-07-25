@@ -99,17 +99,19 @@ class Messager
      */
     protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
     {
-        // Render the email, use the first line as the subject, and the rest as the body
-        $renderedLines = explode("\n", trim($renderedTemplate));
-        $subject = $renderedLines[0];
-        $body = implode("\n", array_slice($renderedLines, 1));
+        list($subject, $text, $html) = $this->getEmailContent($renderedTemplate);
 
+        /** @var \Swift_Message $message */
         $message = $this->mailer->createMessage();
         $message
             ->setSubject($subject)
             ->setFrom($fromEmail)
             ->setTo($toEmail)
-            ->setBody($body);
+            ->setBody($text, 'text/plain');
+
+        if (!is_null($html)) {
+            $message->addPart($html, 'text/html');
+        }
 
         $this->mailer->send($message);
     }
@@ -132,5 +134,27 @@ class Messager
         );
 
         return $rendered;
+    }
+
+    /**
+     * @param $renderedTemplate
+     * @return array
+     */
+    protected function getEmailContent($renderedTemplate): array
+    {
+        // Render the email, use the first line as the subject, and the rest as the body
+        $renderedLines = explode("\n", trim($renderedTemplate));
+        $subject = $renderedLines[0];
+        $body = implode("\n", array_slice($renderedLines, 1));
+
+        $content = explode("<!DOCTYPE html>", $body);
+
+        $text = $body;
+        $html = null;
+        if (count($content) === 2) {
+            $html = '<!DOCTYPE html>' . PHP_EOL . $content[1];
+            $text = $content[0];
+        }
+        return array($subject, $text, $html);
     }
 }
