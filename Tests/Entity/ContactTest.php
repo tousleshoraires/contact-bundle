@@ -9,6 +9,7 @@ class ContactTest extends TestCase
 {
     /**
      * @test
+     * @group Entity
      */
     public function specificationsOfContact()
     {
@@ -21,5 +22,21 @@ class ContactTest extends TestCase
 
         $this->assertEquals($email, $contact->getEmail());
         $this->assertEquals($message, $contact->getMessage());
+    }
+
+    /**
+     * @test
+     * @group Entity
+     */
+    public function fluentSetters()
+    {
+        $contact = new Contact();
+
+        $contact
+            ->setEmail('email@domain.tld')
+            ->setMessage('my message')
+            ->setCreation(new \DateTime("now"));
+
+        $this->assertTrue($contact instanceof Contact);
     }
 }
