@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass()
  */
-abstract class Contact
+abstract class Contact implements ContactInterface
 {
     /**
      * @var int $id

@@ -3,9 +3,9 @@
 namespace tests\TLH\ContactBundle\Services;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use TLH\ContactBundle\Services\Messager;
+use Twig\Environment;
 
 class MessagerTest extends TestCase
 {
@@ -26,7 +26,7 @@ class MessagerTest extends TestCase
             'parameter2' => 'there'
         ];
         $messager = new Messager(
-            $this->createMock(EngineInterface::class),
+            $this->createMock(Environment::class),
             $this->createMock(\Swift_Mailer::class),
             new RequestStack()
         );

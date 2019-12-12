@@ -1,6 +1,15 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    TLH\ContactBundle\Controller\:
+        resource: '../../Controller/*'
+        tags: ['controller.service_arguments']
+
     TLH\ContactBundle\Services\Messager:
-        arguments: ['@templating', '@mailer', '@request_stack']
+        arguments: ['@twig', '@mailer', '@request_stack']
         public: true
         calls:
             - method: setParameters

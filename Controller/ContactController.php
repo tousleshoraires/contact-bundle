@@ -11,16 +11,35 @@
 
 namespace TLH\ContactBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use TLH\ContactBundle\Entity\Contact;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use TLH\ContactBundle\Model\ContactInterface;
 use TLH\ContactBundle\Services\Messager;
 
-// use TLH\ContactBundle\Entity\Contact;
-
-class ContactController extends Controller
+class ContactController extends AbstractController
 {
+    /** @var Messager $messager */
+    protected $messager;
+    
+    /** @var TranslatorInterface $translator */
+    protected $translator;
+
+    /**
+     * ContactController constructor.
+     * @param Messager $messager
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(Messager $messager, TranslatorInterface $translator)
+    {
+        $this->messager = $messager;
+        $this->translator = $translator;
+    }
+
+    /**
+     * The Route is defined into the routing.xml file.
+     */
     public function formAction()
     {
         $contactClass = $this->getParameter('tlh_contact.class');
@@ -28,11 +47,14 @@ class ContactController extends Controller
 
         $form   = $this->createContactForm($contact);
 
-        return $this->render('TLHContactBundle:Contact:form.html.twig', array(
+        return $this->render('@TLHContact/Contact/form.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
+    /**
+     * The Route is defined into the routing.xml file.
+     */
     public function formCreateAction(Request $request)
     {
         $contactClass = $this->getParameter('tlh_contact.class');
@@ -43,17 +65,17 @@ class ContactController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $session = $request->getSession();
-            $session->getFlashBag()->add('notice', $this->get('translator')->trans('contact.confirmed', [], 'TLHContactBundle'));
+            $session->getFlashBag()->add('notice', $this->translator->trans('contact.confirmed', [], 'TLHContactBundle'));
 
             if ($this->getParameter('tlh_contact.confirmation.enabled')) {
-                $this->get(Messager::class)->sendConfirmationEmailMessage(
+                $this->messager->sendConfirmationEmailMessage(
                     $contact,
                     $this->getParameter('tlh_contact.confirmation.template')
                 );
             }
 
             if ($this->getParameter('tlh_contact.information.enabled')) {
-                $this->get(Messager::class)->sendInformationEmailMessage(
+                $this->messager->sendInformationEmailMessage(
                     $contact,
                     $this->getParameter('tlh_contact.information.template')
                 );
@@ -70,7 +92,7 @@ class ContactController extends Controller
             return $this->redirectToRoute('tlh_contact_form');
         }
 
-        return $this->render('TLHContactBundle:Contact:form.html.twig', array(
+        return $this->render('@TLHContact/Contact/form.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -78,11 +100,11 @@ class ContactController extends Controller
     /**
      * Creates a form to create a contact entity.
      *
-     * @param Contact $entity The entity
+     * @param ContactInterface $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface The form
      */
-    protected function createContactForm($entity)
+    protected function createContactForm(ContactInterface $entity)
     {
         $contactClass = $this->getParameter('tlh_contact.class');
 
