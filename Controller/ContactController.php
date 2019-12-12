@@ -14,6 +14,7 @@ namespace TLH\ContactBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use TLH\ContactBundle\Entity\Contact;
 use TLH\ContactBundle\Services\Messager;
 
 // use TLH\ContactBundle\Entity\Contact;
@@ -47,22 +48,24 @@ class ContactController extends Controller
             if ($this->getParameter('tlh_contact.confirmation.enabled')) {
                 $this->get(Messager::class)->sendConfirmationEmailMessage(
                     $contact,
-                    $this->getParameter('tlh_contact.confirmation.enabled')
+                    $this->getParameter('tlh_contact.confirmation.template')
                 );
             }
 
             if ($this->getParameter('tlh_contact.information.enabled')) {
                 $this->get(Messager::class)->sendInformationEmailMessage(
                     $contact,
-                    $this->getParameter('tlh_contact.information.enabled')
+                    $this->getParameter('tlh_contact.information.template')
                 );
             }
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
-            $em->flush();
+            if (!$contact instanceof Contact) {
+                // ... perform some action, such as saving the task to the database
+                // for example, if Task is a Doctrine entity, save it!
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($contact);
+                $em->flush();
+            }
 
             return $this->redirectToRoute('tlh_contact_form');
         }
