@@ -10,7 +10,7 @@ Getting Started With TLHContactBundle
 
 Require the bundle with composer:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    $ composer require tousleshoraires/contact-bundle "dev-master"
+    $ composer require tousleshoraires/contact-bundle
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Step 2: Register the Bundle into the AppKernel
@@ -48,6 +48,8 @@ By importing the routing files you will have the contact page ready.
 ## Step 4: Configuration
 
 The bundle can be configured with a custom FormType, a specific Entity or the basic sender information.
+
+The entity must implement the TLH\ContactBundle\Model\ContactInterface.
 
 ### Complete configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

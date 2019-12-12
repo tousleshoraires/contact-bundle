@@ -37,6 +37,6 @@ class ContactTest extends TestCase
             ->setMessage('my message')
             ->setCreation(new \DateTime("now"));
 
-        $this->assertTrue($contact instanceof Contact);
+        $this->assertInstanceOf(Contact::class, $contact);
     }
 }
