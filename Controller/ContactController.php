@@ -70,22 +70,24 @@ class ContactController extends AbstractController
             if ($this->getParameter('tlh_contact.confirmation.enabled')) {
                 $this->messager->sendConfirmationEmailMessage(
                     $contact,
-                    $this->getParameter('tlh_contact.confirmation.enabled')
+                    $this->getParameter('tlh_contact.confirmation.template')
                 );
             }
 
             if ($this->getParameter('tlh_contact.information.enabled')) {
                 $this->messager->sendInformationEmailMessage(
                     $contact,
-                    $this->getParameter('tlh_contact.information.enabled')
+                    $this->getParameter('tlh_contact.information.template')
                 );
             }
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
-            $em->flush();
+            if (!$contact instanceof Contact) {
+                // ... perform some action, such as saving the task to the database
+                // for example, if Task is a Doctrine entity, save it!
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($contact);
+                $em->flush();
+            }
 
             return $this->redirectToRoute('tlh_contact_form');
         }

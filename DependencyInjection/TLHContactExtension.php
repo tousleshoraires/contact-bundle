@@ -47,6 +47,7 @@ class TLHContactExtension extends Extension
             $container->setParameter('tlh_contact.information.from_email.address', $config['information']['from_email']['address']);
             $container->setParameter('tlh_contact.information.from_email.sender_name', $config['information']['from_email']['sender_name']);
         }
+        $container->setParameter('tlh_contact', $config);
 
         // $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         // $loader->load('services.xml');

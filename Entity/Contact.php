@@ -9,7 +9,7 @@ use TLH\ContactBundle\Model\Contact as ModelContact;
  * TLH\ContactBundle\Entity\Contact
  *
  * @deprecated Use TLH\ContactBundle\Model\Contact instead
- * @ORM\MappedSuperclass()
+ * @ORM\Table(name="contact")
  */
 class Contact extends ModelContact
 {
