@@ -3,7 +3,7 @@
 namespace TLH\ContactBundle\Services;
 
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Twig\Environment;
 
 class Messager
 {
@@ -13,7 +13,7 @@ class Messager
     private $requestStack;
 
     /**
-     * @var EngineInterface
+     * @var Environment
      */
     private $templating;
 
@@ -30,7 +30,7 @@ class Messager
     /**
      * Messager constructor.
      */
-    public function __construct(EngineInterface $templating, \Swift_Mailer $mailer, RequestStack $requestStack)
+    public function __construct(Environment $templating, \Swift_Mailer $mailer, RequestStack $requestStack)
     {
         $this->templating = $templating;
         $this->requestStack = $requestStack;
