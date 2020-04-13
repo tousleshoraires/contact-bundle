@@ -32,22 +32,18 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('tlh_contact');
+        $treeBuilder = new TreeBuilder('tlh_contact');
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            $rootNode = $treeBuilder->root('tlh_contact');
+        }
 
         $rootNode
             ->children()
-                // ->scalarNode('contact_class')->isRequired()->cannotBeEmpty()->end();
                 ->scalarNode('class')->defaultValue('TLH\ContactBundle\Entity\Contact')->end()
                 ->scalarNode('form')->defaultValue('TLH\ContactBundle\Form\ContactType')->end()
                 ->scalarNode('recipient_address')->isRequired()->cannotBeEmpty()->end()
-                // ->arrayNode('from_email')
-                //     ->addDefaultsIfNotSet()
-                //     ->children()
-                //         ->scalarNode('address')->defaultValue('webmaster@example.com')->cannotBeEmpty()->end()
-                //         ->scalarNode('sender_name')->defaultValue('webmaster')->cannotBeEmpty()->end()
-                //     ->end()
-                // ->end()
                 ->arrayNode('confirmation')
                     ->addDefaultsIfNotSet()
                     ->children()
