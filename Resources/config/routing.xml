@@ -5,10 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="tlh_contact_form" path="/contact" methods="GET POST">
-        <default key="_controller">TLHContactBundle:Contact:form</default>
+        <default key="_controller">TLH\ContactBundle\Controller\ContactController::formAction</default>
     </route>
     <route id="tlh_contact_form_create" path="/contact/create" methods="POST">
-        <default key="_controller">TLHContactBundle:Contact:formCreate</default>
+        <default key="_controller">TLH\ContactBundle\Controller\ContactController::formCreateAction</default>
     </route>
 
 </routes>
