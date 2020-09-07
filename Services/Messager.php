@@ -5,7 +5,7 @@ namespace TLH\ContactBundle\Services;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
-class Messager
+class Messager implements MessagerInterface
 {
     /**
      * @var RequestStack
@@ -69,7 +69,7 @@ class Messager
     }
 
     /**
-     * @param $contact
+     * @inheritDoc
      */
     public function sendConfirmationEmailMessage($contact, $template)
     {
@@ -81,7 +81,7 @@ class Messager
     }
 
     /**
-     * @param $contact
+     * @inheritDoc
      */
     public function sendInformationEmailMessage($contact, $template)
     {

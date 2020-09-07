@@ -1,6 +1,6 @@
 <?php
 
-namespace TLH\ContactBundle\Tests\Entity;
+namespace Tests\TLH\ContactBundle\Entity;
 
 use PHPUnit\Framework\TestCase;
 use TLH\ContactBundle\Entity\Contact;

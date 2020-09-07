@@ -15,23 +15,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use TLH\ContactBundle\Entity\Contact;
 use TLH\ContactBundle\Model\ContactInterface;
-use TLH\ContactBundle\Services\Messager;
+use TLH\ContactBundle\Services\MessagerInterface;
 
 class ContactController extends AbstractController
 {
-    /** @var Messager $messager */
+    /** @var MessagerInterface $messager */
     protected $messager;
-    
+
     /** @var TranslatorInterface $translator */
     protected $translator;
 
     /**
      * ContactController constructor.
-     * @param Messager $messager
+     * @param MessagerInterface $messager
      * @param TranslatorInterface $translator
      */
-    public function __construct(Messager $messager, TranslatorInterface $translator)
+    public function __construct(MessagerInterface $messager, TranslatorInterface $translator)
     {
         $this->messager = $messager;
         $this->translator = $translator;

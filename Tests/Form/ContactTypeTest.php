@@ -1,6 +1,6 @@
 <?php
 
-namespace TLH\ContactBundle\Tests\Form;
+namespace Tests\TLH\ContactBundle\Form;
 
 use Symfony\Component\Form\Test\TypeTestCase;
 use TLH\ContactBundle\Form\ContactType;
