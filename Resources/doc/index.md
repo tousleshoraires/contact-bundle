@@ -45,7 +45,24 @@ By importing the routing files you will have the contact page ready.
         <import resource="@TLHContactBundle/Resources/config/routing.xml"/>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+### cutom route
+
+You can modify the route in the routing.yaml file like this:
+
+```yaml
+tlh_contact_form:
+    controller: TLH\ContactBundle\Controller\ContactController::formAction
+    path: /contacto
+```
+
 ## Step 4: Configuration
+
+When you are not using Flex, you need to import the configuration in the config file:
+
+```
+imports:
+     - { resource: '@TLHContactBundle/Resources/config/services.yaml' }
+```
 
 The bundle can be configured with a custom FormType, a specific Entity or the basic sender information.
 

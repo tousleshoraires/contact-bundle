@@ -27,7 +27,13 @@
     "conflict": {},
     "suggest": {},
     "autoload": {
-        "psr-4": { "TLH\\ContactBundle\\": "" }
+        "psr-4": { "TLH\\ContactBundle\\": "" },
+        "exclude-from-classmap": ["Tests/"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "Tests/"
+        }
     },
     "extra": {
         "branch-alias": {

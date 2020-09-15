@@ -8,9 +8,12 @@ services:
         resource: '../../Controller/*'
         tags: ['controller.service_arguments']
 
-    TLH\ContactBundle\Services\Messager:
+    tlh.contact.messager:
+        class: TLH\ContactBundle\Services\Messager
         arguments: ['@twig', '@mailer', '@request_stack']
         public: true
         calls:
             - method: setParameters
               arguments: ['%tlh_contact%']
+    TLH\ContactBundle\Services\Messager: '@tlh.contact.messager'
+    TLH\ContactBundle\Services\MessagerInterface: '@tlh.contact.messager'
