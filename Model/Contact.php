@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass()
  */
+#[ORM\MappedSuperclass()]
 abstract class Contact implements ContactInterface
 {
     /**
@@ -18,6 +19,9 @@ abstract class Contact implements ContactInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column('id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue('AUTO')]
     protected $id;
 
     /**
@@ -25,6 +29,7 @@ abstract class Contact implements ContactInterface
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
+    #[ORM\Column(name: 'email', type: 'string', length:255, nullable:false)]
     protected $email;
 
     /**
@@ -32,6 +37,7 @@ abstract class Contact implements ContactInterface
      *
      * @ORM\Column(name="message", type="text", nullable=false)
      */
+    #[ORM\Column(name: 'message', type: 'text', nullable:false)]
     protected $message;
 
     /**
@@ -39,6 +45,7 @@ abstract class Contact implements ContactInterface
      *
      * @ORM\Column(name="creation", type="datetime", nullable=false)
      */
+    #[ORM\Column(name: 'creation', type: 'datetime', nullable:false)]
     protected $creation;
 
     public function __construct()
