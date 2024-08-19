@@ -5,12 +5,14 @@ namespace Tests\TLH\ContactBundle\Form;
 use Symfony\Component\Form\Test\TypeTestCase;
 use TLH\ContactBundle\Form\ContactType;
 use TLH\ContactBundle\Entity\Contact;
+use PHPUnit\Framework\Attributes\Test;
 
 class ContactTypeTest extends TypeTestCase
 {
     /**
      * @test
      */
+    #[Test]
     public function formIsSubmitedSuccessfully()
     {
         $contact = new Contact();

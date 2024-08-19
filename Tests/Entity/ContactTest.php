@@ -4,6 +4,7 @@ namespace Tests\TLH\ContactBundle\Entity;
 
 use PHPUnit\Framework\TestCase;
 use TLH\ContactBundle\Entity\Contact;
+use PHPUnit\Framework\Attributes\Test;
 
 class ContactTest extends TestCase
 {
@@ -11,7 +12,9 @@ class ContactTest extends TestCase
      * @test
      * @group Entity
      */
-    public function specificationsOfContact()
+    #[Test]
+    #[Group('Entity')]
+   public function specificationsOfContact()
     {
         $email = 'name@domain.tld';
         $message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
@@ -28,6 +31,8 @@ class ContactTest extends TestCase
      * @test
      * @group Entity
      */
+    #[Test]
+    #[Group('Entity')]
     public function fluentSetters()
     {
         $contact = new Contact();
