@@ -2,35 +2,23 @@
 
 namespace TLH\ContactBundle\Services;
 
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
 class Messager implements MessagerInterface
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
+    private Environment $templating;
+    private MailerInterface $mailer;
 
-    /**
-     * @var Environment
-     */
-    private $templating;
-
-    /**
-     * @var \Swift_Mailer
-     */
-    private $mailer;
-
-    /**
-     * @var array
-     */
-    private $parameters;
+    private array $parameters = [];
 
     /**
      * Messager constructor.
      */
-    public function __construct(Environment $templating, \Swift_Mailer $mailer, RequestStack $requestStack)
+    public function __construct(Environment $templating, MailerInterface $mailer, RequestStack $requestStack)
     {
         $this->templating = $templating;
         $this->requestStack = $requestStack;
@@ -42,7 +30,7 @@ class Messager implements MessagerInterface
      *
      * @return Messager
      */
-    public function setParameters($parameters)
+    public function setParameters(array $parameters)
     {
         $this->parameters = $parameters;
         return $this;
@@ -71,7 +59,7 @@ class Messager implements MessagerInterface
     /**
      * @inheritDoc
      */
-    public function sendConfirmationEmailMessage($contact, $template)
+    public function sendConfirmationEmailMessage($contact, $template): void
     {
         $this->sendEmailMessage(
             $this->renderTemplate($contact, $template),
@@ -83,7 +71,7 @@ class Messager implements MessagerInterface
     /**
      * @inheritDoc
      */
-    public function sendInformationEmailMessage($contact, $template)
+    public function sendInformationEmailMessage($contact, $template): void
     {
         $this->sendEmailMessage(
             $this->renderTemplate($contact, $template),
@@ -97,19 +85,18 @@ class Messager implements MessagerInterface
      * @param string $fromEmail
      * @param string $toEmail
      */
-    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
+    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail): void
     {
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
-        $message = $this->mailer->createMessage();
-        $message
-            ->setSubject($subject)
-            ->setFrom($fromEmail)
-            ->setTo($toEmail)
-            ->setBody($body);
+        $message = (new Email())
+            ->subject($subject)
+            ->from($fromEmail)
+            ->to($toEmail)
+            ->html($body);
 
         $this->mailer->send($message);
     }
@@ -119,7 +106,7 @@ class Messager implements MessagerInterface
      * @param string $template
      * @return string
      */
-    private function renderTemplate($contact, $template)
+    private function renderTemplate($contact, $template): string
     {
         $request = $this->requestStack->getCurrentRequest();
         $url      = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();

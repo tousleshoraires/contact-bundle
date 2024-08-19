@@ -3,6 +3,9 @@
 namespace Tests\TLH\ContactBundle\Services;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\Group;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use TLH\ContactBundle\Services\Messager;
 use TLH\ContactBundle\Services\MessagerInterface;
@@ -14,11 +17,13 @@ class MessagerTest extends TestCase
      * @test
      * @group Services
      */
-    public function itIsInstantiable()
+    #[Test]
+    #[Group('Services')]
+   public function itIsInstantiable(): void
     {
         $messager = new Messager(
             $this->createMock(Environment::class),
-            $this->createMock(\Swift_Mailer::class),
+            $this->createMock(MailerInterface::class),
             new RequestStack()
         );
 
@@ -29,7 +34,9 @@ class MessagerTest extends TestCase
      * @test
      * @group Services
      */
-    public function getParameter()
+     #[Test]
+     #[Group('Services')]
+    public function getParameter(): void
     {
         $parameters = [
             'parameter1' => [
@@ -43,7 +50,7 @@ class MessagerTest extends TestCase
         ];
         $messager = new Messager(
             $this->createMock(Environment::class),
-            $this->createMock(\Swift_Mailer::class),
+            $this->createMock(MailerInterface::class),
             new RequestStack()
         );
 
@@ -56,5 +63,27 @@ class MessagerTest extends TestCase
             ->setParameters($parameters)
             ->getParameter('parameter1.nested1.finalkey');
         $this->assertEquals('finalvalue', $parameter);
+    }
+
+    #[Test]
+    #[Group('Services')]
+    public function confirmationEmail(): void
+    {
+        $mailer = $this->createMock(MailerInterface::class);
+        $mailer->expects(self::once())->method('send');
+
+        $requestStack = new RequestStack();
+        $requestStack->push(new \Symfony\Component\HttpFoundation\Request());
+
+        $twig = $this->createMock(Environment::class);
+        $twig->expects(self::once())->method('render')->willReturn('Yes');
+
+        $messager = new Messager(
+            $twig,
+            $mailer,
+            $requestStack
+        );
+        $messager->setParameters(['confirmation' => ['from_email' => ['address' => 'lorem@ipsum.com']], 'recipient_address' => 'received@tlh.fr']);
+        $messager->sendConfirmationEmailMessage([], '');
     }
 }

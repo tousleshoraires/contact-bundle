@@ -15,12 +15,12 @@ interface MessagerInterface
      * @param $template
      * @return void
      */
-    public function sendConfirmationEmailMessage($contact, $template);
+    public function sendConfirmationEmailMessage($contact, $template): void;
 
     /**
      * @param $contact
      * @param $template
      * @return void
      */
-    public function sendInformationEmailMessage($contact, $template);
+    public function sendInformationEmailMessage($contact, $template): void;
 }

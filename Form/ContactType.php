@@ -36,26 +36,26 @@ class ContactType extends AbstractType
         }
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('email', EmailType::class, array());
         $builder->add('message', TextareaType::class, array('label' => 'form.message', 'translation_domain' => 'TLHContactBundle'));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class,
         ));
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'tlh_contact_form';
     }
 
     // For Symfony 2.x
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
